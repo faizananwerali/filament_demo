@@ -14,6 +14,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -208,7 +209,16 @@ class ProductResource extends Resource
                     ->toggledHiddenByDefault(),
             ])
             ->filters([
-                //
+                Forms\Components\Group::make()
+                    ->columns(1)
+                    ->schema([
+                        SelectFilter::make('Visibility')
+                            ->multiple()
+                            ->options([
+                                1 => 'Visible',
+                                0 => 'Hidden',
+                            ]),
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
